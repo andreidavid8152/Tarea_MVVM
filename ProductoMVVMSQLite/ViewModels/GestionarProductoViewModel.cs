@@ -21,11 +21,11 @@ namespace ProductoMVVMSQLite.ViewModels
 
         public string Descripcion { get; set; }
 
-        private int _idProducto = 0;
+        private int id = 0;
 
         private string imagen { set; get; }
 
-        private Producto ProductoEncontrado { get; set; }
+        private Producto pEncontrado { get; set; }
 
         public ImageSource ImagenProducto { set; get; }
 
@@ -36,18 +36,18 @@ namespace ProductoMVVMSQLite.ViewModels
 
         public GestionarProductoViewModel(int IdProducto)
         {
-            _idProducto = IdProducto;
-            ProductoEncontrado = App.productoRepository.Get(_idProducto);
-            Nombre = ProductoEncontrado.Nombre;
-            Descripcion = ProductoEncontrado.Descripcion;
-            Cantidad = ProductoEncontrado.Cantidad.ToString();
-            ImagenProducto = ImageSource.FromFile(ProductoEncontrado.Imagen);
+            id = IdProducto;
+            pEncontrado = App.productoRepository.Get(id);
+            Nombre = pEncontrado.Nombre;
+            Descripcion = pEncontrado.Descripcion;
+            Cantidad = pEncontrado.Cantidad.ToString();
+            ImagenProducto = ImageSource.FromFile(pEncontrado.Imagen);
         }
 
         public ICommand GuardarProducto =>
             new Command(async () =>
             {
-                if (_idProducto == 0)
+                if (id == 0)
                 {
                     Producto producto = new Producto
                     {
@@ -61,14 +61,14 @@ namespace ProductoMVVMSQLite.ViewModels
                 }
                 else
                 {
-                    ProductoEncontrado.Nombre = Nombre;
-                    ProductoEncontrado.Cantidad = Int32.Parse(Cantidad);
-                    ProductoEncontrado.Descripcion = Descripcion;
+                    pEncontrado.Nombre = Nombre;
+                    pEncontrado.Cantidad = Int32.Parse(Cantidad);
+                    pEncontrado.Descripcion = Descripcion;
                     if (imagen != null) // Solo actualiza la imagen si hay una nueva
                     {
-                        ProductoEncontrado.Imagen = imagen;
+                        pEncontrado.Imagen = imagen;
                     }
-                    App.productoRepository.Update(ProductoEncontrado);
+                    App.productoRepository.Update(pEncontrado);
 
                 }
                 Util.ListaProductos.Clear();
