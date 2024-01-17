@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProductoMVVMSQLite.Views.ProductoPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Productos"
+             BackgroundColor="#F2F2F2">
+
+    <VerticalStackLayout>
+
+
+        <Image Source="logo.png"
+               Aspect="AspectFill"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               HeightRequest="150" WidthRequest="150"
+               Margin="0,30,0,-5">
+
+            <Image.Clip>
+                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75"/>
+            </Image.Clip>
+
+        </Image>
+
+        <Button Text="Nuevo Producto" FontSize="15" 
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Command="{Binding CrearProducto}" 
+                BackgroundColor="#FFF9C4"
+                TextColor="Black"  
+                Margin="0,30,0,18"
+                HeightRequest="55"
+                WidthRequest="150"/>
+
+        <CollectionView x:Name="listaProductos"
+                  SelectedItem="{Binding ProductoSeleccionado}"
+                  ItemsSource="{Binding ListaProductos}"
+                  SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    ItemSpacing="10"
+                    Orientation="Vertical"
+                    SnapPointsAlignment="Start"
+                    SnapPointsType="MandatorySingle" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Margin="10" BackgroundColor="White" Padding="10">
+                        <Image Source="{Binding ImagenProducto}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill" />
+                        <StackLayout Orientation="Vertical" Spacing="5" Margin="10,0,0,0">
+                            <Label Text="{Binding Nombre}" FontSize="20"/>
+                            <Label Text="{Binding Descripcion}" FontSize="16" LineBreakMode="TailTruncation" MaxLines="2"/>
+                            <Label Text="{Binding Cantidad}" FontSize="18"/>
+                        </StackLayout>
+
+                        <!-- Botón de edición estilizado -->
+                        <Button Text="Editar"
+                                FontSize="16"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                BackgroundColor="LightSkyBlue"
+                                TextColor="White"
+                                Padding="10,5"
+                                Command="{Binding BindingContext.EditarProducto, Source={x:Reference Name=listaProductos}}"
+                                CommandParameter="{Binding}"/>
+                        
+
+                        <Button Text="Eliminar"
+                                FontSize="16"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                BackgroundColor="LightCoral"
+                                TextColor="White"
+                                Padding="10,5"
+                                Command="{Binding BindingContext.EliminarProducto, Source={x:Reference Name=listaProductos}}"
+                                CommandParameter="{Binding}"/>
+                        
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
