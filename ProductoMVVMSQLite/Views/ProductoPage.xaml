@@ -6,77 +6,99 @@
              Title="Productos"
              BackgroundColor="#F2F2F2">
 
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
 
 
-        <Image Source="logo.png"
-               Aspect="AspectFill"
-               HorizontalOptions="Center" VerticalOptions="Center"
-               HeightRequest="150" WidthRequest="150"
-               Margin="0,30,0,-5">
+            <Image Source="logo.png"
+           Aspect="AspectFill"
+           HorizontalOptions="Center" VerticalOptions="Center"
+           HeightRequest="150" WidthRequest="150"
+           Margin="0,30,0,-5">
 
-            <Image.Clip>
-                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75"/>
-            </Image.Clip>
+                <Image.Clip>
+                    <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75"/>
+                </Image.Clip>
 
-        </Image>
+            </Image>
 
-        <Button Text="Nuevo Producto" FontSize="15" 
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                Command="{Binding CrearProducto}" 
-                BackgroundColor="#FFF9C4"
-                TextColor="Black"  
-                Margin="0,30,0,18"
-                HeightRequest="55"
-                WidthRequest="150"/>
+            <Button Text="Nuevo Producto" FontSize="15" 
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Command="{Binding CrearProducto}" 
+            BackgroundColor="#FFF9C4"
+            TextColor="Black"  
+            Margin="0,30,0,5"
+            HeightRequest="55"
+            WidthRequest="150"/>
 
-        <CollectionView x:Name="listaProductos"
-                  SelectedItem="{Binding ProductoSeleccionado}"
-                  ItemsSource="{Binding ListaProductos}"
-                  SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout
-                    ItemSpacing="10"
-                    Orientation="Vertical"
-                    SnapPointsAlignment="Start"
-                    SnapPointsType="MandatorySingle" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Orientation="Horizontal" Margin="10" BackgroundColor="White" Padding="10">
-                        <Image Source="{Binding ImagenProducto}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill" />
-                        <StackLayout Orientation="Vertical" Spacing="5" Margin="10,0,0,0">
-                            <Label Text="{Binding Nombre}" FontSize="20"/>
-                            <Label Text="{Binding Descripcion}" FontSize="16" LineBreakMode="TailTruncation" MaxLines="2"/>
-                            <Label Text="{Binding Cantidad}" FontSize="18"/>
-                        </StackLayout>
+            <CollectionView x:Name="listaProductos"
+              SelectedItem="{Binding ProductoSeleccionado}"
+              ItemsSource="{Binding ListaProductos}"
+              SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                ItemSpacing="10"
+                Orientation="Vertical"
+                SnapPointsAlignment="Start"
+                SnapPointsType="MandatorySingle" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                        <!-- Botón de edición estilizado -->
-                        <Button Text="Editar"
-                                FontSize="16"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                BackgroundColor="LightSkyBlue"
-                                TextColor="White"
-                                Padding="10,5"
-                                Command="{Binding BindingContext.EditarProducto, Source={x:Reference Name=listaProductos}}"
-                                CommandParameter="{Binding}"/>
-                        
 
-                        <Button Text="Eliminar"
-                                FontSize="16"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                BackgroundColor="LightCoral"
-                                TextColor="White"
-                                Padding="10,5"
-                                Command="{Binding BindingContext.EliminarProducto, Source={x:Reference Name=listaProductos}}"
-                                CommandParameter="{Binding}"/>
-                        
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+                        <Frame Padding="5" Margin="0,25,0,0" CornerRadius="20" BorderColor="#FFC107" BackgroundColor="#FFF9C4" WidthRequest="150">
+                            <StackLayout>
+                                <!-- Imagen del Producto con un tamaño ajustado y bordes redondeados -->
+                                <Image Source="{Binding ImagenProducto}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" Margin="10"/>
+
+                                <!-- Nombre del Producto con el mismo estilo de la app -->
+                                <Label Text="{Binding Nombre, StringFormat='Nombre: {0}'}" FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" TextColor="#040a01" Margin="10,4,0,0"/>
+                                <Label Text="{Binding Descripcion, StringFormat='Descripcion: {0}'}" FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" TextColor="#040a01" Margin="10,0,0,0"/>
+                                <Label Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" TextColor="#040a01" Margin="10,0,0,10"/>
+
+
+                                <!-- Aquí comienza el Grid para los dos frames -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <!-- Primera columna -->
+                                        <ColumnDefinition Width="*"/>
+                                        <!-- Segunda columna -->
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Primer Frame en la primera columna -->
+                                    <Frame CornerRadius="30" Padding="0" HasShadow="True" Margin="0,5,-10,3" BorderColor="#77BF1A" WidthRequest="50" BackgroundColor="#BFF678" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="4">
+                                            <Image Source="edit.svg" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.EditarProducto, Source={x:Reference Name=listaProductos}}" CommandParameter="{Binding}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+
+                                    <!-- Segundo Frame en la segunda columna -->
+                                    <Frame CornerRadius="30" Padding="0" HasShadow="True" Margin="0,5,10,3" BorderColor="#77BF1A" WidthRequest="50" BackgroundColor="#BFF678" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="4">
+                                            <Image Source="delete.svg" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.EliminarProducto, Source={x:Reference Name=listaProductos}}" CommandParameter="{Binding}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </Grid>
+
+
+                            </StackLayout>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

@@ -35,7 +35,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#F2F2F2"/>
+		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#F2F2F2" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.png" Color="#F2F2F2" BaseSize="128,128" />
@@ -61,6 +61,8 @@
 	<ItemGroup>
 		<None Remove="FodyWeavers.xml" />
 		<None Remove="Resources\Images\black.jpeg" />
+		<None Remove="Resources\Images\delete.svg" />
+		<None Remove="Resources\Images\edit.svg" />
 		<None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
 
@@ -74,10 +76,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\GestionarProductoPage.xaml.cs">
+	    <DependentUpon>GestionarProductoPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<MauiXaml Update="Views\NuevoProductoPage - Copia.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\NuevoProductoPage.xaml">
+		<MauiXaml Update="Views\GestionarProductoPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\ProductoPage.xaml">

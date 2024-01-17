@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProductoMVVMSQLite.Views.NuevoProductoPage"
+             x:Class="ProductoMVVMSQLite.Views.GestionarProductoPage"
              Title="Gestionar Producto"
              BackgroundColor="#F2F2F2">
-    
+
     <VerticalStackLayout>
 
 
@@ -33,7 +33,7 @@
         <TableView Margin="0,0,0,20">
             <TableRoot>
                 <TableSection Title="Ingrese un nuevo producto" TextColor="Black">
-                    
+
                     <EntryCell x:Name="Nombre"
                                Placeholder="Nombre"
                                Text= "{Binding Nombre}"/>
@@ -50,7 +50,7 @@
                 </TableSection>
             </TableRoot>
         </TableView>
-        
+
         <Button Text="Guardar"
                 BackgroundColor="#FFF9C4"
                 FontAttributes="Bold"
@@ -59,7 +59,7 @@
                 HeightRequest="50"
                 WidthRequest="150"
                 HorizontalOptions="Center"/>
-        
+
     </VerticalStackLayout>
-    
+
 </ContentPage>

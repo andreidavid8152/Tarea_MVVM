@@ -12,7 +12,7 @@ using System.Windows.Input;
 namespace ProductoMVVMSQLite.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class NuevoProductoViewModel
+    public class GestionarProductoViewModel
     {
 
         public string Nombre { get; set; }
@@ -29,12 +29,12 @@ namespace ProductoMVVMSQLite.ViewModels
 
         public ImageSource ImagenProducto { set; get; }
 
-        public NuevoProductoViewModel()
+        public GestionarProductoViewModel()
         {
             ImagenProducto = "black.jpeg";
         }
 
-        public NuevoProductoViewModel(int IdProducto)
+        public GestionarProductoViewModel(int IdProducto)
         {
             _idProducto = IdProducto;
             ProductoEncontrado = App.productoRepository.Get(_idProducto);
@@ -54,7 +54,7 @@ namespace ProductoMVVMSQLite.ViewModels
                         Nombre = Nombre,
                         Descripcion = Descripcion,
                         Cantidad = Int32.Parse(Cantidad),
-                        Imagen = imagen
+                        Imagen = imagen ?? "black.jpeg" // Si no hay nueva imagen, usa una por defecto
                     };
                     App.productoRepository.Add(producto);
 
@@ -64,7 +64,10 @@ namespace ProductoMVVMSQLite.ViewModels
                     ProductoEncontrado.Nombre = Nombre;
                     ProductoEncontrado.Cantidad = Int32.Parse(Cantidad);
                     ProductoEncontrado.Descripcion = Descripcion;
-                    ProductoEncontrado.Imagen = imagen;
+                    if (imagen != null) // Solo actualiza la imagen si hay una nueva
+                    {
+                        ProductoEncontrado.Imagen = imagen;
+                    }
                     App.productoRepository.Update(ProductoEncontrado);
 
                 }

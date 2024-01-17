@@ -23,37 +23,30 @@ namespace ProductoMVVMSQLite.ViewModels
         public ICommand CrearProducto =>
             new Command(async () =>
             {
-                await App.Current.MainPage.Navigation.PushAsync(new NuevoProductoPage());
+                await App.Current.MainPage.Navigation.PushAsync(new GestionarProductoPage());
             });
 
         public ICommand EditarProducto =>
-            new Command(async () =>
+            new Command<Producto>(async (producto) =>
             {
-                if (ProductoSeleccionado != null)
+                if (producto != null)
                 {
-                    int IdProducto = ProductoSeleccionado.IdProducto;
-                    await App.Current.MainPage.Navigation.PushAsync(new NuevoProductoPage(IdProducto));
-                    ProductoSeleccionado = null;
+                    await App.Current.MainPage.Navigation.PushAsync(new GestionarProductoPage(producto.IdProducto));
                 }
             });
 
         public ICommand EliminarProducto =>
-            new Command(async () =>
-            {
-                if (ProductoSeleccionado != null)
-                {
-                    bool confirmacion = await App.Current.MainPage.DisplayAlert("Confirmación", "¿Estás seguro de que quieres eliminar este producto?", "Sí", "No");
-
-                    if (confirmacion)
-                    {
-                        App.productoRepository.Delete(ProductoSeleccionado);
-
-                        Util.ListaProductos.Clear();
-                        App.productoRepository.GetAll().ForEach(Util.ListaProductos.Add);
-
-                        ProductoSeleccionado = null;
-                    }
-                }
-            });
+             new Command<Producto>(async (producto) =>
+             {
+                 if (producto != null)
+                 {
+                     bool confirmacion = await App.Current.MainPage.DisplayAlert("Aviso", "¿Quieres eliminar este producto?", "Sí", "No");
+                     if (confirmacion)
+                     {
+                         App.productoRepository.Delete(producto);
+                         Util.ListaProductos.Remove(producto);
+                     }
+                 }
+             });
     }
 }
