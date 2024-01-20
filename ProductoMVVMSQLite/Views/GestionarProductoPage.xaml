@@ -7,29 +7,6 @@
 
     <VerticalStackLayout>
 
-
-        <Image Source="{Binding ImagenProducto}"
-           Aspect="AspectFill"
-           HorizontalOptions="Center" VerticalOptions="Center"
-           HeightRequest="250" WidthRequest="250"
-           Margin="0,30,0,30">
-
-            <Image.Clip>
-                <EllipseGeometry Center="125,125" RadiusX="125" RadiusY="125"/>
-            </Image.Clip>
-
-        </Image>
-
-        <Button Text="Tomar Foto"
-                HeightRequest="50"
-                WidthRequest="150"
-                BackgroundColor="#FFF9C4"
-                TextColor="Black"
-                Command="{Binding TomarFoto}"
-                HorizontalOptions="Center"
-                FontAttributes="Bold"
-                Margin="0,0,0,10"/>
-
         <TableView Margin="0,0,0,20">
             <TableRoot>
                 <TableSection Title="Ingrese un nuevo producto" TextColor="Black">

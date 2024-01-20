@@ -49,9 +49,6 @@
 
                         <Frame Padding="5" Margin="0,25,0,0" CornerRadius="20" BorderColor="#FFC107" BackgroundColor="#FFF9C4" WidthRequest="150">
                             <StackLayout>
-                                <!-- Imagen del Producto con un tamaño ajustado y bordes redondeados -->
-                                <Image Source="{Binding ImagenProducto}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" Margin="10"/>
-
                                 <!-- Nombre del Producto con el mismo estilo de la app -->
                                 <Label Text="{Binding Nombre, StringFormat='Nombre: {0}'}" FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" TextColor="#040a01" Margin="10,4,0,0"/>
                                 <Label Text="{Binding Descripcion, StringFormat='Descripcion: {0}'}" FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" TextColor="#040a01" Margin="10,0,0,0"/>
